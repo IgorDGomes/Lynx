@@ -1,0 +1,51 @@
+:root {
+  --background: #262626;
+  --foreground: #e0e0e0;
+  --primary: #0d3652;
+  --secondary: #1b6cbd;
+  --accent: #fbc02d;
+  --success: #388e3c;
+  --error: #f57c00;
+  background-color: var(--background);
+}
+
+text {
+  color: var(--foreground);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  padding: 30px 30px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--primary);
+}
+
+.header > text {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #1976d2;
+}
+
+.tab-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.pokemon-card-image {
+  width: 100vw;
+  height: 100vw;
+}
