@@ -38,14 +38,130 @@ text {
   display: flex;
   justify-content: space-around;
   background-color: #1976d2;
+  z-index: 1000;
 }
 
 .tab-icon {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+}
+
+.tab-open {
+  background-color: var(--foreground);
+  border-radius: 8px;
+}
+
+.divider {
+  height: 100%;
+  width: 1px;
+  background-color: #ffffff66;
+}
+
+/* Home Page */
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 40px;
+}
+
+.pokemon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background-color: #ffffff66;
+  padding: 20px 0;
+  border-radius: 12px;
+}
+
+.pokemon-card > text {
+  width: 100%;
+  text-align: left;
+  padding: 0 20px;
 }
 
 .pokemon-card-image {
-  width: 100vw;
-  height: 100vw;
+  width: 250px;
+  height: 250px;
+  border: 1px solid red;
+}
+
+/* Settings */
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  padding: 1rem 1rem 2rem;
+}
+
+.content {
+  max-width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section > text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffffcc;
+}
+
+.theme-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: #ffffff11;
+  border-radius: 12px;
+}
+
+.theme-item > text {
+  width: 70%;
+  font-weight: 700;
+}
+
+.theme-item > image {
+  width: 20px;
+  height: 20px;
+}
+
+.more-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-left: 1rem;
+}
+
+.result {
+  padding: 0.8rem 1rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.social {
+  font-weight: 700;
+}
+
+.more-info image {
+  width: 14px;
+  height: 8px;
+  margin-right: 20px;
+}
+
+.social-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

@@ -1,5 +1,5 @@
 import { useState } from "@lynx-js/react";
-import { Card } from "../components/card.jsx";
+import { Card } from "../components/homePage/card.jsx";
 
 export function Random() {
   const [pokemonData, setPokemonData] = useState("");

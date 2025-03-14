@@ -30,7 +30,7 @@ export function Card({
   }
 
   return (
-    <view bindtap={changeImage}>
+    <view bindtap={changeImage} class="pokemon-card">
       {frontImage ? (
         <image src={frontImg} class="pokemon-card-image" />
       ) : (

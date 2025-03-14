@@ -9,6 +9,7 @@ import { Random } from "./pages/random.jsx";
 import homeIcon from "./assets/House.png";
 import randomIcon from "./assets/Shuffle.png";
 import settingsIcon from "./assets/Wrench.png";
+import { Settings } from "./pages/settings.jsx";
 
 enum Pages {
   Home = 1,
@@ -20,26 +21,45 @@ export function App() {
   const [pageOpened, setPageOpened] = useState<Pages>(Pages.Home);
 
   return (
-    <scroll-view scroll-orientation="vertical">
+    <view>
       <Header />
       {pageOpened === Pages.Home && <Home />}
       {pageOpened === Pages.Random && <Random />}
+      {pageOpened === Pages.Settings && <Settings />}
       <view class="navbar">
         <view bindtap={() => setPageOpened(Pages.Random)} class="navbar-option">
-          <image src={randomIcon} class="tab-icon" />
+          {pageOpened === Pages.Random ? (
+            <view class="tab-open">
+              <image src={randomIcon} class="tab-icon" />
+            </view>
+          ) : (
+            <image src={randomIcon} class="tab-icon" />
+          )}
         </view>
-        <view style="height:100%;width:1px;background-color:#ffffff66;"></view>
+        <view class="divider"></view>
         <view bindtap={() => setPageOpened(Pages.Home)} class="navbar-option">
-          <image src={homeIcon} class="tab-icon" />
+          {pageOpened === Pages.Home ? (
+            <view class="tab-open">
+              <image src={homeIcon} class="tab-icon" />
+            </view>
+          ) : (
+            <image src={homeIcon} class="tab-icon" />
+          )}
         </view>
-        <view style="height:100%;width:1px;background-color:#ffffff66;"></view>
+        <view class="divider"></view>
         <view
           bindtap={() => setPageOpened(Pages.Settings)}
           class="navbar-option"
         >
-          <image src={settingsIcon} class="tab-icon" />
+          {pageOpened === Pages.Settings ? (
+            <view class="tab-open">
+              <image src={settingsIcon} class="tab-icon" />
+            </view>
+          ) : (
+            <image src={settingsIcon} class="tab-icon" />
+          )}
         </view>
       </view>
-    </scroll-view>
+    </view>
   );
 }
