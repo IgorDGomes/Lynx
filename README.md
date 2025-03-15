@@ -24,3 +24,10 @@ As of now it only support `<view>`, `<scroll-view>`, `<text>`, `<image>` and `<l
 [Solution](https://lynxjs.org/guide/custom-native-component.html#platform=android)
 
 Creating Custom Native elements, either using java or kotlin. ( Android )
+
+<!-- FINISH -->
+<!--
+
+    fix spacing around text on settings
+
+-->
