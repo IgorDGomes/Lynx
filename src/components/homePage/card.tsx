@@ -1,4 +1,4 @@
-import { useState } from "@lynx-js/react";
+import { useEffect, useState } from "@lynx-js/react";
 
 interface CardProps {
   id?: string;
@@ -36,10 +36,19 @@ export function Card({
       ) : (
         <image src={backImg} class="pokemon-card-image" />
       )}
-      <text class="pokemon-id">ID: {id}</text>
-      <text class="pokemon-name">Name: {name}</text>
-      <text class="pokemon-weight">Height: {height}</text>
-      <text class="pokemon-weight">Weight: {weight}</text>
+      <view class="pokemon-card-info">
+        <view>
+          <text class="pokemon-name">
+            {/* {name[0].toUpperCase() + name.slice(1, name.length)} */}
+            {name}
+          </text>
+          <text class="pokemon-id">#{id}</text>
+        </view>
+        <view class="extra-info">
+          <text>Ht: {height}</text>
+          <text>Wt: {weight}</text>
+        </view>
+      </view>
     </view>
   );
 }

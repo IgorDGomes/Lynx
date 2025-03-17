@@ -1,5 +1,6 @@
 import { useEffect, useState } from "@lynx-js/react";
 import { Card } from "../components/homePage/card.jsx";
+import loader from "../assets/Load.png";
 
 export function Home() {
   const [pokemonFrontImage, setPokemonFrontImage] = useState("");
@@ -14,7 +15,7 @@ export function Home() {
   const getData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/1`);
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/386`);
       const data = await response.json();
       setPokemonName(data.name);
       setPokemonId(data.id);
@@ -46,48 +47,28 @@ export function Home() {
         scroll-bar-enable
         style={{ width: "100vw", height: "100vh", padding: "40px 0 180px" }}
       >
-        <view class="home-container">
-          <Card
-            name={pokemonName}
-            frontImg={pokemonFrontImage}
-            backImg={pokemonBackImage}
-            height={pokemonHeight}
-            weight={pokemonWeight}
-            id={pokemonId}
-          />
-          <Card
-            name={pokemonName}
-            frontImg={pokemonFrontImage}
-            backImg={pokemonBackImage}
-            height={pokemonHeight}
-            weight={pokemonWeight}
-            id={pokemonId}
-          />
-          <Card
-            name={pokemonName}
-            frontImg={pokemonFrontImage}
-            backImg={pokemonBackImage}
-            height={pokemonHeight}
-            weight={pokemonWeight}
-            id={pokemonId}
-          />
-          <Card
-            name={pokemonName}
-            frontImg={pokemonFrontImage}
-            backImg={pokemonBackImage}
-            height={pokemonHeight}
-            weight={pokemonWeight}
-            id={pokemonId}
-          />
-          <Card
-            name={pokemonName}
-            frontImg={pokemonFrontImage}
-            backImg={pokemonBackImage}
-            height={pokemonHeight}
-            weight={pokemonWeight}
-            id={pokemonId}
-          />
-        </view>
+        {loading ? (
+          <image src={loader} class="loader" />
+        ) : (
+          <view class="home-container">
+            <Card
+              name={pokemonName}
+              frontImg={pokemonFrontImage}
+              backImg={pokemonBackImage}
+              height={pokemonHeight}
+              weight={pokemonWeight}
+              id={pokemonId}
+            />
+            <Card
+              name={pokemonName}
+              frontImg={pokemonFrontImage}
+              backImg={pokemonBackImage}
+              height={pokemonHeight}
+              weight={pokemonWeight}
+              id={pokemonId}
+            />
+          </view>
+        )}
       </scroll-view>
     </>
   );
