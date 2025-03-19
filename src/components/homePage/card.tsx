@@ -1,13 +1,13 @@
-import { useEffect, useState } from "@lynx-js/react";
+import { useState } from "@lynx-js/react";
 
 interface CardProps {
-  id?: string;
+  id: number;
   name: string;
-  frontImg: string;
-  backImg: string;
-  weight?: string;
-  height?: string;
-  types?: string[];
+  frontImg?: string;
+  backImg?: string;
+  weight: number;
+  height: number;
+  types: string[];
 }
 
 export function Card({
@@ -38,10 +38,7 @@ export function Card({
       )}
       <view class="pokemon-card-info">
         <view>
-          <text class="pokemon-name">
-            {/* {name[0].toUpperCase() + name.slice(1, name.length)} */}
-            {name}
-          </text>
+          <text class="pokemon-name">{name}</text>
           <text class="pokemon-id">#{id}</text>
         </view>
         <view class="extra-info">

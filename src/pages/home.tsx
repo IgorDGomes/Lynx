@@ -1,44 +1,20 @@
-import { useEffect, useState } from "@lynx-js/react";
+import { usePokemon } from "../context/index.jsx";
+
 import { Card } from "../components/homePage/card.jsx";
+
 import loader from "../assets/Load.png";
 
 export function Home() {
-  const [pokemonFrontImage, setPokemonFrontImage] = useState("");
-  const [pokemonBackImage, setPokemonBackImage] = useState("");
-  const [pokemonId, setPokemonId] = useState("");
-  const [pokemonName, setPokemonName] = useState("");
-  const [pokemonWeight, setPokemonWeight] = useState("");
-  const [pokemonHeight, setPokemonHeight] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const { pokemons, loading, error } = usePokemon();
 
-  const getData = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/386`);
-      const data = await response.json();
-      setPokemonName(data.name);
-      setPokemonId(data.id);
-      setPokemonWeight(data.weight);
-      setPokemonHeight(data.height);
-      setPokemonFrontImage(data.sprites.front_default);
-      setPokemonBackImage(data.sprites.back_default);
-
-      return data;
-    } catch (error) {
-      console.error("Error fetching pokemon: ", error);
-      setError(true);
-    } finally {
-      setLoading(false);
-      setTimeout(() => {
-        setError(false);
-      }, 2000);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  if (error) {
+    return (
+      <view style="display:flex;flex-direction:column;gap:1rem;align-items:center;padding-top:5rem;">
+        <text>Error fetching pokemon data :/</text>
+        <text>Please try again!</text>
+      </view>
+    );
+  }
 
   return (
     <>
@@ -48,25 +24,25 @@ export function Home() {
         style={{ width: "100vw", height: "100vh", padding: "40px 0 180px" }}
       >
         {loading ? (
-          <image src={loader} class="loader" />
+          <view style="display:flex;flex-direction:column;gap:1rem;width:100vw;height:100%;justify-content:center;align-items:center;">
+            <image src={loader} class="loader" />
+            <text>Please wait...</text>
+          </view>
         ) : (
           <view class="home-container">
-            <Card
-              name={pokemonName}
-              frontImg={pokemonFrontImage}
-              backImg={pokemonBackImage}
-              height={pokemonHeight}
-              weight={pokemonWeight}
-              id={pokemonId}
-            />
-            <Card
-              name={pokemonName}
-              frontImg={pokemonFrontImage}
-              backImg={pokemonBackImage}
-              height={pokemonHeight}
-              weight={pokemonWeight}
-              id={pokemonId}
-            />
+            {pokemons.map((pokemon) => {
+              return (
+                <Card
+                  name={pokemon.name}
+                  frontImg={pokemon.frontImage}
+                  backImg={pokemon.backImage}
+                  height={pokemon.height}
+                  weight={pokemon.weight}
+                  id={pokemon.id}
+                  types={pokemon.types}
+                />
+              );
+            })}
           </view>
         )}
       </scroll-view>

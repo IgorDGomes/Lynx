@@ -1,46 +1,82 @@
-import { createContext, useCallback, useEffect, useState } from "react";
-import type {
-  PokemonBasicData,
-  PokemonDetailedData,
-  PokemonImportantInfo,
-  PokemonListData,
-} from "../types/pokemonData.js";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "@lynx-js/react";
 
-const pokemonsContext = createContext(null);
+interface Pokemon {
+  id: number;
+  name: string;
+  types: string[];
+  weight: number;
+  height: number;
+  frontImage: string;
+  backImage: string;
+}
 
-function PokedexProvider() {
-  const [pokemonList, setPokemonList] = useState<PokemonListData[]>([]);
-  const [pokemonInfo, setPokemonInfo] = useState<PokemonImportantInfo[]>([]);
+interface PokemonContextType {
+  pokemons: Pokemon[];
+  loading: boolean;
+  error: boolean;
+}
 
-  const getPokemons = useCallback(async () => {
-    const basicData = await fetch(
-      "https://pokeapi.co/api/v2/pokemon?offset=0&limit=10000"
-    ).then((res) => res.json());
+const PokemonContext = createContext<PokemonContextType>({
+  pokemons: [],
+  loading: true,
+  error: false,
+});
 
-    basicData.results.map((pokemon: PokemonBasicData) => {
-      const pokemonUrl = pokemon.url;
-      const pokemonUrlArray = pokemonUrl.split("/").filter(Boolean);
+export const usePokemon = (): PokemonContextType => useContext(PokemonContext);
 
-      return setPokemonList([
-        ...pokemonList,
-        {
-          id: pokemonUrlArray[pokemonUrlArray.length - 1],
-          name: pokemon.name,
-          url: pokemon.url,
-        },
-      ]);
-    });
+export const PokemonProvider = ({ children }: { children: ReactNode }) => {
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-    pokemonList.forEach(async (pokemonData) => {
-      const detailedData: PokemonDetailedData = await fetch(
-        pokemonData.url
-      ).then((res) => res.json());
+  const fetchPokemons = async () => {
+    try {
+      const response = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?offset=0&limit=2000"
+      );
+      const data = await response.json();
 
-      //   setPokemonInfo([...pokemonInfo, {
-      //     detailedData.
-      // }])
-    });
+      const pokemonDetails: Pokemon[] = await Promise.all(
+        data.results.map(async (pokemon: { url: string; name: string }) => {
+          const pokemonResponse = await fetch(pokemon.url);
+          const pokemonData = await pokemonResponse.json();
+
+          return {
+            id: pokemonData.id,
+            name: pokemonData.name,
+            types: pokemonData.types.map(
+              (type: { type: { name: string } }) => type.type.name
+            ),
+            weight: pokemonData.weight,
+            height: pokemonData.height,
+            frontImage: pokemonData.sprites.front_default,
+            backImage: pokemonData.sprites.back_default,
+          };
+        })
+      );
+
+      setPokemons(pokemonDetails);
+    } catch (error) {
+      console.error("Error fetching Pokémon data:", error);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPokemons();
   }, []);
 
-  useEffect(() => {}, []);
-}
+  return (
+    <PokemonContext.Provider value={{ pokemons, loading, error }}>
+      {children}
+    </PokemonContext.Provider>
+  );
+};

@@ -1,9 +1,9 @@
 import { useState } from "@lynx-js/react";
 
-import darkMode from "../assets/Moon.png";
-import check from "../assets/Check.png";
 import arrowDown from "../assets/ArrowDown.png";
 import arrowUp from "../assets/ArrowUp.png";
+import darkMode from "../assets/Moon.png";
+import check from "../assets/Check.png";
 
 export function Settings() {
   const [showGithubUsername, setShowGithubUsername] = useState(false);

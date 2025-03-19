@@ -4,6 +4,8 @@ Made with the purpose of trying Lynx framework
 
 ## Preview
 
+https://github.com/user-attachments/assets/3905a815-a9db-490c-9b76-e2840743a473
+
 ## Problems:
 
 ### Creating app from Windows machine
@@ -25,9 +27,6 @@ As of now it only support `<view>`, `<scroll-view>`, `<text>`, `<image>` and `<l
 
 Creating Custom Native elements, either using java or kotlin. ( Android )
 
-<!-- FINISH -->
-<!--
+### Unable to use methods: replaceAll(), slice() or toUpperCase()
 
-    fix spacing around text on settings
-
--->
+It throws an error of an undefined function
